@@ -1,0 +1,45 @@
+:root{
+    --green:#43c200;
+    --blue:#225fb1;
+    --light-blue:#225dae;
+    --white:#ffffff;
+    --black:#000000;
+
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body,html{
+    height: 100%;
+    width: 100%;
+}
+
+@media (min-width:800px){
+    
+
+header{
+    display: flex;
+    height: 149px;
+    width: 100%;
+    background-color: blueviolet;
+    align-items: center;
+}
+
+.title-logo{
+    display: flex;
+    flex-direction: row;
+}
+
+.nav-ul{
+    height: 22px;
+    width: 536px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+}    
+
+}
