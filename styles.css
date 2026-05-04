@@ -26,6 +26,8 @@ header{
     width: 100%;
     background-color: blueviolet;
     align-items: center;
+    position: sticky;
+    top: 0;
 }
 
 .title-logo{
@@ -42,4 +44,9 @@ header{
 
 }    
 
+.perks{
+    background-color: #0F242A;
+    width: 100%;
+    height: 716px;
+}
 }
