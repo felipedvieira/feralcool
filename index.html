@@ -9,7 +9,9 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script defer src="landing-page.js"></script>
+
   </head>
   <body>
     <!-- NAV -->
@@ -125,20 +127,18 @@
           <a href="#" class="service-link">Ver produtos</a>
         </div>
         <div class="service-card">
-          <div class="service-icon">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path
-                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"
-              />
-            </svg>
-          </div>
-          <h3>Franquias</h3>
-          <p>
-            Torne-se um franqueado YORK e faça parte de uma rede consolidada.
-            Conheça as condições exclusivas e comece a lucrar com nosso modelo.
-          </p>
-          <a href="#" class="service-link">Consultar franquia</a>
+        <div class="service-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+          </svg>
         </div>
+        <h3>Entregas</h3>
+        <p>
+          Realizamos entregas em Belo Horizonte e região. Confira se o seu
+          endereço está dentro da nossa área de cobertura.
+        </p>
+        <button class="service-link" id="open-map-btn" style="background:none;border:none;cursor:pointer;padding:0;font-family:inherit;">Ver área de cobertura</button>
+      </div>
         <div class="service-card">
           <div class="service-icon">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -152,10 +152,32 @@
             Nossa equipe está pronta para atender parceiros, clientes e novos
             franqueados. Entre em contato e fale com um especialista agora.
           </p>
-          <a href="#" class="service-link">Fale conosco</a>
+          <a href="https://wa.me/5531983754922" class="service-link">Fale conosco</a>
         </div>
       </div>
     </section>
+
+    <!-- MODAL MAPA DE COBERTURA -->
+<div id="map-modal" class="modal-overlay" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" style="max-width:700px;width:95%">
+    <button class="modal-close" id="map-modal-close" aria-label="Fechar">✕</button>
+    <div class="modal-header" style="margin-bottom:20px">
+      <div class="modal-emoji">🗺️</div>
+      <div>
+        <p class="modal-category">Logística</p>
+        <h2 class="modal-title">Área de Cobertura</h2>
+      </div>
+    </div>
+    <p style="font-size:14px;color:var(--text-muted);margin-bottom:16px;">
+      A área destacada em verde indica a região atendida pela Feralcool Distribuidora em Belo Horizonte e região.
+    </p>
+    <div id="coverage-map" style="height:420px;width:100%;border-radius:0;"></div>
+    <div style="margin-top:16px;display:flex;align-items:center;gap:8px;">
+      <div style="width:16px;height:16px;background:rgba(35,190,30,0.35);border:2px solid #23be1e;flex-shrink:0;"></div>
+      <span style="font-size:13px;color:var(--text-muted);">Área de entrega — Feralcool Distribuidora</span>
+    </div>
+  </div>
+</div>
 
     <!-- BRANDS -->
     <section class="brands">
@@ -238,10 +260,159 @@
         <p class="modal-desc" id="modal-desc"></p>
         <div class="modal-tags" id="modal-tags"></div>
         <div class="modal-specs" id="modal-specs"></div>
-        <a href="#" class="btn-red modal-cta">Solicitar pedido</a>
+        <button class="btn-green modal-cta" id="open-order-btn">Solicitar pedido→</button>
       </div>
     </div>
 
+    <!-- MODAL PEDIDO -->
+    <div id="order-modal" class="modal-overlay" aria-hidden="true">
+      <div class="modal-box" role="dialog" aria-modal="true" style="max-width:560px">
+        <button class="modal-close" id="order-modal-close" aria-label="Fechar">x</button>
+        <div class="modal-header" style="margin-bottom:24px">
+          <div class="modal-emoji">📋</div>
+          <div>
+            <p class="modal-category">Cotação</p>
+            <h2 class="modal-title" id="order-product-title"></h2>
+          </div>
+        </div>
+        <div id="order-form-area">
+          <div class="order-fields">
+            <div class="order-field-group">
+              <label class="order-label">Nome completo *</label>
+              <input class="order-input" id="field-nome" type="text" placeholder="Ex: João Silva">
+            </div>
+            <div class="order-field-group">
+              <label class="order-label">Empresa *</label>
+              <input class="order-input" id="field-empresa" type="text" placeholder="Ex: Mercado Central Ltda">
+            </div>
+            <div class="order-row">
+              <div class="order-field-group">
+                <label class="order-label">Telefone *</label>
+                <input class="order-input" id="field-telefone" type="tel" placeholder="(00) 00000-0000">
+              </div>
+              <div class="order-field-group">
+                <label class="order-label">E-mail</label>
+                <input class="order-input" id="field-email" type="email" placeholder="seu@email.com">
+              </div>
+            </div>
+            <div class="order-row">
+              <div class="order-field-group">
+                <label class="order-label">Embalagem desejada</label>
+                <input class="order-input" id="field-embalagem" type="text" placeholder="Ex: PET 2L, Lata 350ml">
+              </div>
+              <div class="order-field-group">
+                <label class="order-label">Quantidade *</label>
+                <input class="order-input" id="field-quantidade" type="text" placeholder="Ex: 10 caixas, 200L">
+              </div>
+            </div>
+            <div class="order-field-group">
+              <label class="order-label">Observações</label>
+              <textarea class="order-input order-textarea" id="field-obs" placeholder="Prazo, frequência de entrega, condições de pagamento..."></textarea>
+            </div>
+          </div>
+          <p class="order-error" id="order-error" style="display:none">Preencha os campos obrigatórios (*).</p>
+          <div class="order-actions">
+            <button class="order-btn-whats" id="btn-whatsapp">Enviar pelo WhatsApp</button>
+            <button class="order-btn-email" id="btn-email">Enviar por E-mail</button>
+          </div>
+        </div>
+        <div id="order-success" style="display:none;text-align:center;padding:20px 0">
+          <div style="font-size:52px;margin-bottom:16px">✅</div>
+          <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;text-transform:uppercase;margin-bottom:10px">Pedido enviado!</h3>
+          <p style="color:var(--text-muted);font-size:15px;line-height:1.6">Recebemos sua solicitação de cotação.<br>Nossa equipe entrará em contato em breve.</p>
+          <button class="btn-red" style="margin-top:24px" id="order-success-close">Fechar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODAL ORÇAMENTO GERAL -->
+<div id="general-order-modal" class="modal-overlay" aria-hidden="true">
+  <div class="modal-box" role="dialog" aria-modal="true" style="max-width:560px">
+    <button class="modal-close" id="general-order-close" aria-label="Fechar">✕</button>
+    <div class="modal-header" style="margin-bottom:24px">
+      <div class="modal-emoji">📋</div>
+      <div>
+        <p class="modal-category">Orçamento</p>
+        <h2 class="modal-title">Solicitar Orçamento</h2>
+      </div>
+    </div>
+    <div id="general-order-form-area">
+      <div class="order-fields">
+        <div class="order-field-group">
+          <label class="order-label">Produto desejado *</label>
+          <select class="order-input" id="general-field-produto">
+            <option value="">Selecione um produto...</option>
+            <optgroup label="Álcoois Cereais">
+              <option value="Álcool Cereais">Álcool Cereais</option>
+            </optgroup>
+            <optgroup label="Álcool Hidratado">
+              <option value="Álcool Hidratado 96°">Álcool Hidratado 96°</option>
+              <option value="Álcool Hidratado 70°">Álcool Hidratado 70°</option>
+              <option value="Álcool Isopropílico">Álcool Isopropílico</option>
+            </optgroup>
+            <optgroup label="Bebidas">
+              <option value="Coca-Cola">Coca-Cola</option>
+              <option value="Fanta">Fanta</option>
+              <option value="Sprite">Sprite</option>
+              <option value="Kaiser">Kaiser</option>
+              <option value="Kuat">Kuat</option>
+              <option value="Crystal">Crystal</option>
+              <option value="Del Valle">Del Valle</option>
+              <option value="Burn">Burn</option>
+              <option value="Heineken">Heineken</option>
+              <option value="Leão Ice Tea">Leão Ice Tea</option>
+              <option value="Gladiator">Gladiator</option>
+              <option value="Bavaria">Bavaria</option>
+            </optgroup>
+          </select>
+        </div>
+        <div class="order-field-group">
+          <label class="order-label">Nome completo *</label>
+          <input class="order-input" id="general-field-nome" type="text" placeholder="Ex: João Silva">
+        </div>
+        <div class="order-field-group">
+          <label class="order-label">Empresa *</label>
+          <input class="order-input" id="general-field-empresa" type="text" placeholder="Ex: Mercado Central Ltda">
+        </div>
+        <div class="order-row">
+          <div class="order-field-group">
+            <label class="order-label">Telefone *</label>
+            <input class="order-input" id="general-field-telefone" type="tel" placeholder="(00) 00000-0000">
+          </div>
+          <div class="order-field-group">
+            <label class="order-label">E-mail</label>
+            <input class="order-input" id="general-field-email" type="email" placeholder="seu@email.com">
+          </div>
+        </div>
+        <div class="order-row">
+          <div class="order-field-group">
+            <label class="order-label">Embalagem desejada</label>
+            <input class="order-input" id="general-field-embalagem" type="text" placeholder="Ex: PET 2L, Tambor 200L">
+          </div>
+          <div class="order-field-group">
+            <label class="order-label">Quantidade *</label>
+            <input class="order-input" id="general-field-quantidade" type="text" placeholder="Ex: 10 caixas, 200L">
+          </div>
+        </div>
+        <div class="order-field-group">
+          <label class="order-label">Observações</label>
+          <textarea class="order-input order-textarea" id="general-field-obs" placeholder="Prazo, frequência de entrega, condições de pagamento..."></textarea>
+        </div>
+      </div>
+      <p class="order-error" id="general-order-error" style="display:none">⚠️ Preencha os campos obrigatórios (*).</p>
+      <div class="order-actions">
+        <button class="order-btn-whats" id="general-btn-whatsapp">Enviar pelo WhatsApp</button>
+        <button class="order-btn-email" id="general-btn-email">Enviar por E-mail</button>
+      </div>
+    </div>
+    <div id="general-order-success" style="display:none;text-align:center;padding:20px 0">
+      <div style="font-size:52px;margin-bottom:16px">✅</div>
+      <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;text-transform:uppercase;margin-bottom:10px">Orçamento enviado!</h3>
+      <p style="color:var(--text-muted);font-size:15px;line-height:1.6">Recebemos sua solicitação.<br>Nossa equipe entrará em contato em breve.</p>
+      <button class="btn-red" style="margin-top:24px" id="general-order-success-close">Fechar</button>
+    </div>
+  </div>
+</div>
     <!-- CTA -->
     <section class="cta-strip">
       <div>
@@ -251,7 +422,7 @@
           em até 24 horas.
         </p>
       </div>
-      <a href="#" class="btn-green">Orçamento</a>
+      <button class="btn-green" id="open-general-order-btn">Orçamento</button>
     </section>
 
     <!-- FOOTER -->
