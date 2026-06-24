@@ -759,3 +759,102 @@ footer {
   font-size: 12px;
   color: rgba(255, 255, 255, 0.3);
 }
+
+/* ── MODAL CONTATO ── */
+.contact-modal-box {
+  background: var(--white);
+  width: 90%;
+  max-width: 520px;
+  padding: 48px 44px 44px;
+  position: relative;
+  overflow: hidden;
+  transform: translateY(20px);
+  transition: transform 0.25s;
+}
+.modal-overlay.active .contact-modal-box { transform: translateY(0); }
+
+.contact-bg-logo {
+  position: absolute;
+  bottom: -20px;
+  right: -20px;
+  width: 220px;
+  opacity: 0.07;
+  pointer-events: none;
+  user-select: none;
+  z-index: 0;
+}
+.contact-bg-logo img { width: 100%; display: block; }
+
+.contact-content { position: relative; z-index: 1; }
+
+.contact-title {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 42px;
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 1.0;
+  color: var(--text);
+  margin: 6px 0 8px;
+}
+.contact-title span { color: #23be1e; }
+
+.contact-subtitle {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 28px;
+}
+
+.contact-items { display: flex; flex-direction: column; gap: 10px; }
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 16px;
+  background: var(--gray);
+  border: 1.5px solid transparent;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color 0.2s, background 0.2s;
+}
+.contact-item:hover { border-color: #23be1e; background: #f0fff0; }
+.contact-item--plain:hover { border-color: transparent; background: var(--gray); cursor: default; }
+
+.contact-item-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.contact-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+.contact-item-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-muted);
+}
+.contact-item-value {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.contact-item-arrow {
+  font-size: 18px;
+  color: #23be1e;
+  font-weight: 700;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.contact-item:hover .contact-item-arrow { opacity: 1; }

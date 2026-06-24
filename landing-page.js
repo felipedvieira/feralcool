@@ -390,9 +390,9 @@ document.getElementById('general-order-close').addEventListener('click', closeGe
 document.getElementById('general-order-success-close').addEventListener('click', closeGeneralOrderModal);
 generalOrderOverlay.addEventListener('click', e => { if (e.target === generalOrderOverlay) closeGeneralOrderModal(); });
 
-// fechar com Esc — substitua o listener anterior por este:
+// Event listener close modais
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeModal(); closeOrderModal(); closeGeneralOrderModal(); closeMapModal(); }
+  if (e.key === 'Escape') { closeModal(); closeOrderModal(); closeGeneralOrderModal(); closeMapModal(); closeContactModal();}
 });
 
 function getGeneralFormData() {
@@ -504,17 +504,67 @@ function initMap() {
 
   // ── ÁREA DE COBERTURA ──
   // Edite as coordenadas abaixo para ajustar o polígono à sua região real
-  const coverageArea = [
-    [-19.8550, -44.0200], // Noroeste — Contagem / Ibirité
-    [-19.8300, -43.9800], // Norte — Venda Nova / Pampulha
-    [-19.8200, -43.9200], // Nordeste — Santa Luzia / Ribeiro de Abreu
-    [-19.8600, -43.8700], // Leste — Caiçara / Sagrada Família
-    [-19.9200, -43.8500], // Sudeste — Barreiro / Santa Efigênia
-    [-19.9800, -43.8800], // Sul — Betim / Eldorado
-    [-19.9900, -43.9600], // Sudoeste — Contagem
-    [-19.9500, -44.0300], // Oeste — Ibirité / Betim
-    [-19.8900, -44.0500], // Oeste-norte
-  ];
+  const coverageArea =  [
+          [
+            -19.8153091,-43.9584104
+          ],
+          [
+            -19.8464878,-43.9133969
+            
+          ],
+          [
+             -19.8690254,-43.8898824
+           
+          ],
+          [
+            -19.9227235,-43.8686074
+            
+          ],
+          [
+            -19.9629326,-43.9270577
+            
+          ],
+          [
+            -19.9955474,-43.9674268
+            
+          ],
+          [
+            -20.011289,-44.017052
+            
+          ],
+          [
+            -19.9853394,-44.0375862
+            
+          ],
+          [
+           -19.9536562, -44.1478429
+            
+          ],
+          [
+            -19.9011644,-44.1176939
+            
+          ],
+          [
+            -19.8606259,-44.0560312
+            
+          ],
+          [
+            -19.7980276,-44.0135891
+            
+          ],
+          [
+            -19.8050695,-43.9723246
+            
+          ],
+          [
+            -19.8156462,-43.9586656
+            
+          ],
+          [
+           -19.8152293,-43.9584246
+            
+          ]
+        ];
 
   const polygon = L.polygon(coverageArea, {
     color: '#23be1e',
@@ -542,3 +592,22 @@ function closeMapModal() {
 
 mapModalClose.addEventListener('click', closeMapModal);
 mapModal.addEventListener('click', e => { if (e.target === mapModal) closeMapModal(); });
+
+// ── MODAL CONTATO ──
+const contactModal = document.getElementById('contact-modal');
+
+document.getElementById('open-contact-btn').addEventListener('click', e => {
+  e.preventDefault();
+  contactModal.classList.add('active');
+  contactModal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+});
+
+function closeContactModal() {
+  contactModal.classList.remove('active');
+  contactModal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('contact-modal-close').addEventListener('click', closeContactModal);
+contactModal.addEventListener('click', e => { if (e.target === contactModal) closeContactModal(); });
