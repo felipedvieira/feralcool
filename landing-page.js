@@ -596,11 +596,13 @@ mapModal.addEventListener('click', e => { if (e.target === mapModal) closeMapMod
 // ── MODAL CONTATO ──
 const contactModal = document.getElementById('contact-modal');
 
-document.getElementById('open-contact-btn').addEventListener('click', e => {
-  e.preventDefault();
-  contactModal.classList.add('active');
-  contactModal.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
+document.querySelectorAll('#open-contact-btn, .open-contact-modal').forEach(el => {
+  el.addEventListener('click', e => {
+    e.preventDefault();
+    contactModal.classList.add('active');
+    contactModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  });
 });
 
 function closeContactModal() {
