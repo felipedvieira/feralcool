@@ -15,7 +15,7 @@ const PRODUCTS = {
   "cereal-a": {
     emoji: "🌾",
     category: "Álcoois Cereais",
-    name: "Marca Cereal A",
+    name: "Álcool de Cereais",
     desc: "Álcool cereal de alta pureza, produzido a partir de grãos selecionados. Ideal para uso industrial e comercial, com excelente rendimento e qualidade certificada.",
     tags: ["Uso Industrial", "Alta Pureza", "Granel"],
     specs: [
@@ -28,11 +28,11 @@ const PRODUCTS = {
   "hidratado-a": {
     emoji: "💧",
     category: "Álcool Hidratado",
-    name: "Marca Hidratado A",
+    name: "Álcool Hidratado 96°",
     desc: "Álcool hidratado combustível com alto desempenho. Produzido conforme as normas ANP, ideal para abastecimento veicular e geração de energia.",
     tags: ["Combustível", "Norma ANP", "Automotivo"],
     specs: [
-      { label: "Teor Alcoólico", value: "92,6° INPM" },
+      { label: "Teor Alcoólico", value: "96° INPM" },
       { label: "Tipo", value: "Hidratado" },
       { label: "Embalagens", value: "Granel / Tambor" },
       { label: "Certificação", value: "ANP" },
@@ -41,7 +41,7 @@ const PRODUCTS = {
   "hidratado-b": {
     emoji: "💧",
     category: "Álcool Hidratado",
-    name: "Marca Hidratado B",
+    name: "Álcool Hidratado 70°",
     desc: "Solução alcoólica hidratada para limpeza e higienização, com eficácia comprovada contra bactérias e fungos. Amplamente utilizado em ambientes hospitalares e comerciais.",
     tags: ["Higienização", "Hospitalar", "70 INPM"],
     specs: [
@@ -54,7 +54,7 @@ const PRODUCTS = {
   "hidratado-c": {
     emoji: "💧",
     category: "Álcool Hidratado",
-    name: "Marca Hidratado C",
+    name: "Álcool Isopropílico",
     desc: "Álcool hidratado para uso doméstico e comercial. Eficaz na limpeza de superfícies, remoção de manchas e como agente desinfetante geral.",
     tags: ["Doméstico", "Multiuso", "Econômico"],
     specs: [
@@ -264,15 +264,8 @@ const orderCloseBtn = document.getElementById('order-modal-close');
  
 document.getElementById('open-order-btn').addEventListener('click', () => {
   if (!currentProduct) return;
-  document.getElementById('order-product-title').textContent = currentProduct.name;
-  // reset form
-  ['field-nome','field-empresa','field-telefone','field-email','field-embalagem','field-quantidade','field-obs']
-    .forEach(id => document.getElementById(id).value = '');
-  document.getElementById('order-error').style.display = 'none';
-  document.getElementById('order-form-area').style.display = 'block';
-  document.getElementById('order-success').style.display = 'none';
-  orderOverlay.classList.add('active');
-  orderOverlay.setAttribute('aria-hidden', 'false');
+  closeModal();
+  openGeneralOrderModal(currentProduct.name);
 });
  
 function closeOrderModal() {
@@ -363,14 +356,59 @@ document.getElementById('btn-email').addEventListener('click', async () => {
   btn.disabled = false;
 });
 
-// ── ORÇAMENTO GERAL (CTA) ──
+// ── ORÇAMENTO GERAL (CTA) — MÚLTIPLOS PRODUTOS ──
 const generalOrderOverlay = document.getElementById('general-order-modal');
+const productRowsContainer = document.getElementById('product-rows');
+let productRowCount = 0;
 
-document.getElementById('open-general-order-btn').addEventListener('click', () => {
-  // reset
-  document.getElementById('general-field-produto').value = '';
-  ['general-field-nome','general-field-empresa','general-field-telefone',
-   'general-field-email','general-field-embalagem','general-field-quantidade','general-field-obs']
+const PRODUCT_OPTIONS = [
+  { group: 'Álcoois Cereais', items: ['Álcool Cereais'] },
+  { group: 'Álcool Hidratado', items: ['Álcool Hidratado 96°', 'Álcool Hidratado 70°', 'Álcool Isopropílico'] },
+  { group: 'Bebidas', items: ['Coca-Cola','Fanta','Sprite','Kaiser','Kuat','Crystal','Del Valle','Burn','Heineken','Leão Ice Tea','Gladiator','Bavaria'] },
+];
+
+function buildProductOptionsHTML() {
+  return '<option value="">Selecione...</option>' +
+    PRODUCT_OPTIONS.map(g =>
+      `<optgroup label="${g.group}">` +
+      g.items.map(i => `<option value="${i}">${i}</option>`).join('') +
+      `</optgroup>`
+    ).join('');
+}
+
+function addProductRow() {
+  productRowCount++;
+  const rowId = `row-${productRowCount}`;
+  const row = document.createElement('div');
+  row.className = 'product-row';
+  row.id = rowId;
+  row.innerHTML = `
+    <select class="order-input row-produto">${buildProductOptionsHTML()}</select>
+    <input class="order-input row-embalagem" type="text" placeholder="Embalagem">
+    <input class="order-input row-quantidade" type="text" placeholder="Quantidade">
+    <button type="button" class="btn-remove-row" title="Remover">✕</button>
+  `;
+  row.querySelector('.btn-remove-row').addEventListener('click', () => {
+    if (productRowsContainer.children.length > 1) {
+      row.remove();
+    }
+  });
+  productRowsContainer.appendChild(row);
+}
+
+document.getElementById('add-product-row').addEventListener('click', addProductRow);
+
+function openGeneralOrderModal(preSelectedProduct = null) {
+  productRowsContainer.innerHTML = '';
+  productRowCount = 0;
+  addProductRow();
+
+  if (preSelectedProduct) {
+    const firstSelect = productRowsContainer.querySelector('.row-produto');
+    if (firstSelect) firstSelect.value = preSelectedProduct;
+  }
+
+  ['general-field-nome','general-field-empresa','general-field-telefone','general-field-email','general-field-obs']
     .forEach(id => document.getElementById(id).value = '');
   document.getElementById('general-order-error').style.display = 'none';
   document.getElementById('general-order-form-area').style.display = 'block';
@@ -378,7 +416,9 @@ document.getElementById('open-general-order-btn').addEventListener('click', () =
   generalOrderOverlay.classList.add('active');
   generalOrderOverlay.setAttribute('aria-hidden', 'false');
   document.body.style.overflow = 'hidden';
-});
+}
+
+document.getElementById('open-general-order-btn').addEventListener('click', () => openGeneralOrderModal());
 
 function closeGeneralOrderModal() {
   generalOrderOverlay.classList.remove('active');
@@ -390,26 +430,30 @@ document.getElementById('general-order-close').addEventListener('click', closeGe
 document.getElementById('general-order-success-close').addEventListener('click', closeGeneralOrderModal);
 generalOrderOverlay.addEventListener('click', e => { if (e.target === generalOrderOverlay) closeGeneralOrderModal(); });
 
-// Event listener close modais
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') { closeModal(); closeOrderModal(); closeGeneralOrderModal(); closeMapModal(); closeContactModal();}
-});
-
 function getGeneralFormData() {
+  const produtos = [];
+  productRowsContainer.querySelectorAll('.product-row').forEach(row => {
+    const produto = row.querySelector('.row-produto').value;
+    const embalagem = row.querySelector('.row-embalagem').value.trim();
+    const quantidade = row.querySelector('.row-quantidade').value.trim();
+    if (produto || quantidade) {
+      produtos.push({ produto, embalagem, quantidade });
+    }
+  });
   return {
-    produto:    document.getElementById('general-field-produto').value,
-    nome:       document.getElementById('general-field-nome').value.trim(),
-    empresa:    document.getElementById('general-field-empresa').value.trim(),
-    telefone:   document.getElementById('general-field-telefone').value.trim(),
-    email:      document.getElementById('general-field-email').value.trim(),
-    embalagem:  document.getElementById('general-field-embalagem').value.trim(),
-    quantidade: document.getElementById('general-field-quantidade').value.trim(),
-    obs:        document.getElementById('general-field-obs').value.trim(),
+    produtos,
+    nome: document.getElementById('general-field-nome').value.trim(),
+    empresa: document.getElementById('general-field-empresa').value.trim(),
+    telefone: document.getElementById('general-field-telefone').value.trim(),
+    email: document.getElementById('general-field-email').value.trim(),
+    obs: document.getElementById('general-field-obs').value.trim(),
   };
 }
 
 function validateGeneralForm(data) {
-  return data.produto && data.nome && data.empresa && data.telefone && data.quantidade;
+  const produtosValidos = data.produtos.length > 0 &&
+    data.produtos.every(p => p.produto && p.quantidade);
+  return produtosValidos && data.nome && data.empresa && data.telefone;
 }
 
 document.getElementById('general-btn-whatsapp').addEventListener('click', () => {
@@ -419,16 +463,20 @@ document.getElementById('general-btn-whatsapp').addEventListener('click', () => 
     return;
   }
   document.getElementById('general-order-error').style.display = 'none';
+
+  const listaProdutos = d.produtos.map((p, i) =>
+    `${i + 1}. ${p.produto}${p.embalagem ? ` (${p.embalagem})` : ''} — *${p.quantidade}*`
+  ).join('\n');
+
   const msg =
     `*Solicitação de Orçamento — Feralcool*\n\n` +
-    `📦 *Produto:* ${d.produto}\n` +
+    `📦 *Produtos:*\n${listaProdutos}\n\n` +
     `👤 *Nome:* ${d.nome}\n` +
     `🏢 *Empresa:* ${d.empresa}\n` +
     `📞 *Telefone:* ${d.telefone}\n` +
-    (d.email     ? `📧 *E-mail:* ${d.email}\n`       : '') +
-    (d.embalagem ? `📐 *Embalagem:* ${d.embalagem}\n` : '') +
-    `📊 *Quantidade:* ${d.quantidade}\n` +
-    (d.obs       ? `📝 *Observações:* ${d.obs}`       : '');
+    (d.email ? `📧 *E-mail:* ${d.email}\n` : '') +
+    (d.obs ? `📝 *Observações:* ${d.obs}` : '');
+
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   document.getElementById('general-order-form-area').style.display = 'none';
   document.getElementById('general-order-success').style.display = 'block';
@@ -444,20 +492,23 @@ document.getElementById('general-btn-email').addEventListener('click', async () 
   const btn = document.getElementById('general-btn-email');
   btn.textContent = 'Enviando...';
   btn.disabled = true;
+
+  const produtosTexto = d.produtos.map((p, i) =>
+    `${i + 1}. ${p.produto}${p.embalagem ? ` (${p.embalagem})` : ''} — ${p.quantidade}`
+  ).join('\n');
+
   try {
     const res = await fetch(FORMSPREE_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
       body: JSON.stringify({
-        produto:     d.produto,
-        nome:        d.nome,
-        empresa:     d.empresa,
-        telefone:    d.telefone,
-        email:       d.email,
-        embalagem:   d.embalagem,
-        quantidade:  d.quantidade,
+        produtos: produtosTexto,
+        nome: d.nome,
+        empresa: d.empresa,
+        telefone: d.telefone,
+        email: d.email,
         observacoes: d.obs,
-        _subject:    `Orçamento: ${d.produto} — ${d.empresa}`
+        _subject: `Orçamento (${d.produtos.length} produto${d.produtos.length > 1 ? 's' : ''}) — ${d.empresa}`
       })
     });
     if (res.ok) {
@@ -472,6 +523,7 @@ document.getElementById('general-btn-email').addEventListener('click', async () 
   btn.textContent = 'Enviar por E-mail';
   btn.disabled = false;
 });
+
 
 // ── MAPA DE COBERTURA ──
 const mapModal = document.getElementById('map-modal');

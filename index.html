@@ -19,8 +19,8 @@
       <a class="nav-logo" href="#">Feralcool Distribuidora<span>.</span></a>
       <ul class="nav-links">
         <li><a href="#">Início</a></li>
-        <li><a href="#">Empresa</a></li>
-        <li><a href="#">Produtos</a></li>
+        <li><a href="#intro_id">Empresa</a></li>
+        <li><a href="#products_id">Produtos</a></li>
         <li><a href="#" id="open-contact-btn">Contato</a></li>
       </ul>
     </nav>
@@ -92,9 +92,12 @@
             A Feralcool Distribuidora é uma continuação de um legado iniciado em
             1984, quando nosso fundador, Raimundo Vieira, começou a Bebidas Apa,
             uma pequena distribuidora no bairro Caiçaras, afim de trazer a
-            melhor qualidade de álcool e cachaçapara o mercado mineiro. Ao longo
+            melhor qualidade de álcool e cachaça para o mercado mineiro. Ao longo
             dos anos, nos consolidamos como referência em qualidade, confiança
-            eexcelente serviço ao cliente.
+            excelente serviço ao cliente, passando a produzir rótulos próprios de
+            cachaças. Em 2022, Fernando Vieira segue o legado de seu pai, agora no 
+            comando da Feralcool, um novo nome, mas garantindo o mesma qualidade, 
+            atendimento e tratamento ao cliente que sempre foi prestado.
           </p>
         </div>
 
@@ -214,7 +217,7 @@
 </div>
 
     <!-- BRANDS -->
-    <section class="brands">
+    <section class="brands" id="products_id">
       <p class="section-label">Portfólio</p>
       <h2 class="section-title">Marcas que trabalhamos</h2>
 
@@ -255,9 +258,7 @@
             <h3 class="brand-cat-title">Bebidas</h3>
           </div>
           <div class="brands-grid">
-            <button class="brand-pill" data-product="coca-cola">
-              Coca-Cola
-            </button>
+            <button class="brand-pill" data-product="coca-cola">Coca-Cola</button>
             <button class="brand-pill" data-product="fanta">Fanta</button>
             <button class="brand-pill" data-product="sprite">Sprite</button>
             <button class="brand-pill" data-product="kaiser">Kaiser</button>
@@ -448,7 +449,7 @@
 
     <!-- MODAL ORÇAMENTO GERAL -->
 <div id="general-order-modal" class="modal-overlay" aria-hidden="true">
-  <div class="modal-box" role="dialog" aria-modal="true" style="max-width:560px">
+  <div class="modal-box" role="dialog" aria-modal="true" style="max-width:680px">
     <button class="modal-close" id="general-order-close" aria-label="Fechar">✕</button>
     <div class="modal-header" style="margin-bottom:24px">
       <div class="modal-emoji">📋</div>
@@ -457,35 +458,13 @@
         <h2 class="modal-title">Solicitar Orçamento</h2>
       </div>
     </div>
+
     <div id="general-order-form-area">
       <div class="order-fields">
         <div class="order-field-group">
-          <label class="order-label">Produto desejado *</label>
-          <select class="order-input" id="general-field-produto">
-            <option value="">Selecione um produto...</option>
-            <optgroup label="Álcoois Cereais">
-              <option value="Álcool Cereais">Álcool Cereais</option>
-            </optgroup>
-            <optgroup label="Álcool Hidratado">
-              <option value="Álcool Hidratado 96°">Álcool Hidratado 96°</option>
-              <option value="Álcool Hidratado 70°">Álcool Hidratado 70°</option>
-              <option value="Álcool Isopropílico">Álcool Isopropílico</option>
-            </optgroup>
-            <optgroup label="Bebidas">
-              <option value="Coca-Cola">Coca-Cola</option>
-              <option value="Fanta">Fanta</option>
-              <option value="Sprite">Sprite</option>
-              <option value="Kaiser">Kaiser</option>
-              <option value="Kuat">Kuat</option>
-              <option value="Crystal">Crystal</option>
-              <option value="Del Valle">Del Valle</option>
-              <option value="Burn">Burn</option>
-              <option value="Heineken">Heineken</option>
-              <option value="Leão Ice Tea">Leão Ice Tea</option>
-              <option value="Gladiator">Gladiator</option>
-              <option value="Bavaria">Bavaria</option>
-            </optgroup>
-          </select>
+          <label class="order-label">Produtos desejados *</label>
+          <div id="product-rows"></div>
+          <button type="button" class="btn-add-product" id="add-product-row">+ Adicionar produto</button>
         </div>
         <div class="order-field-group">
           <label class="order-label">Nome completo *</label>
@@ -505,16 +484,6 @@
             <input class="order-input" id="general-field-email" type="email" placeholder="seu@email.com">
           </div>
         </div>
-        <div class="order-row">
-          <div class="order-field-group">
-            <label class="order-label">Embalagem desejada</label>
-            <input class="order-input" id="general-field-embalagem" type="text" placeholder="Ex: PET 2L, Tambor 200L">
-          </div>
-          <div class="order-field-group">
-            <label class="order-label">Quantidade *</label>
-            <input class="order-input" id="general-field-quantidade" type="text" placeholder="Ex: 10 caixas, 200L">
-          </div>
-        </div>
         <div class="order-field-group">
           <label class="order-label">Observações</label>
           <textarea class="order-input order-textarea" id="general-field-obs" placeholder="Prazo, frequência de entrega, condições de pagamento..."></textarea>
@@ -526,6 +495,7 @@
         <button class="order-btn-email" id="general-btn-email">Enviar por E-mail</button>
       </div>
     </div>
+
     <div id="general-order-success" style="display:none;text-align:center;padding:20px 0">
       <div style="font-size:52px;margin-bottom:16px">✅</div>
       <h3 style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:900;text-transform:uppercase;margin-bottom:10px">Orçamento enviado!</h3>
@@ -539,7 +509,7 @@
       <div>
         <h2>Faça um<br /><span>orçamento</span>.</h2>
         <p>
-          Clique ao lado, preencha o formulário e nossa equipe entra em contato
+          Clique ao lado, nossa equipe entrará em contato
           em até 24 horas.
         </p>
       </div>
