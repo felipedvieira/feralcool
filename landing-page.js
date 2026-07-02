@@ -141,83 +141,122 @@ const PRODUCTS = {
       { label: "Volumes", value: "970ml" },
       { label: "Origem", value: "Cachaça Guaraciaba" },
     ],
+  }, 
+  Paratudo: {
+    emoji: "🧊",
+    category: "Bebidas",
+    name: "Paratudo Raízes Amargas",
+    desc: "Tradição indígena que se transformou em uma das bebidas mais populares do Brasil. Seu segredo é o sabor marcante da sua combinação de ervas, capaz de seduzir qualquer paladar. ",
+    tags: ["Bitter", "Nacional", "Bebidas"],
+    specs: [
+      { label: "Tipos", value: "Raízes Amargas" },
+      { label: "Embalagens", value: "Garrafa" },
+      { label: "Volumes", value: "900ml" },
+      { label: "Origem", value: "Para-Tudo" },
+    ],
   },
-  "del-valle": {
+  "Presidente": {
+    emoji: "🥃",
+    category: "Bebidas",
+    name: "Conhaque Presidente",
+    desc: "Elaborado com álcool neutro de excelente qualidade proveniente do destilado alcoólico da cana de açúcar. Possui infusões naturais de ameixas, uvas e gengibre, o que conferem ao produto os aromas e o sabor. Coloração caramelo, com aroma característico de ameixa e uva, sabor macio e agradável ao paladar.",
+    tags: ["Conhaque", "Nacional", "Bebidas"],
+    specs: [
+      { label: "Tipos", value: "Tradicional" },
+      { label: "Embalagens", value: "Garrafa" },
+      { label: "Volumes", value: "900ml" },
+      { label: "Origem", value: "Presidente" },
+    ],
+  },
+  Dreher: {
+    emoji: "🥃",
+    category: "Bebidas",
+    name: "Conhaque Dreher",
+    desc: "O famoso conhaque Dreher é um clássico entre os destilados brasileiros. Se você busca por um alcoólico que é sinônimo de tradição e sabor, Dreher Garrafa 900ml é a escolha certeira.",
+    tags: ["Conhaque", "Nacional", "Bebidas"],
+    specs: [
+      { label: "Tipos", value: "Tradicional" },
+      { label: "Embalagens", value: "Garrafa" },
+      { label: "Volumes", value: "900ml" },
+      { label: "Origem", value: "Dreher" },
+    ],
+  },
+  Saojoao: {
+    emoji: "🥃",
+    category: "Bebidas",
+    name: "Conhaque São João da Barra",
+    desc: "Conhaque elaborado a partir de destilados de cana-de-açúcar e extrato de Alcatrão vegetal. O Conhaque do Milagre, como é conhecido, é o famoso companheiro de quem aprecia uma bebida mais encorpada. A 100 anos é o preferido de norte a sul do Brasil. Ideal para quem procura algo forte e estimulante.",
+    tags: ["Conhaque", "Nacional", "Bebidas"],
+    specs: [
+      { label: "Tipos", value: "Tradicional" },
+      { label: "Embalagens", value: "Garrafa" },
+      { label: "Volumes", value: "900ml" },
+      { label: "Origem", value: "São João da Barra" },
+    ],
+  },
+  Campari: {
+    emoji: "🍸",
+    category: "Bebidas",
+    name: "Campari",
+    desc: "Campari é uma bebida destilada obtida através da infusão de ervas amargas, plantas aromáticas e frutas em álcool e água. Até o momento, álcool e água são os únicos ingredientes conhecidos de sua receita especial e secreta. A coloração do Campari é intensa e vermelha, enquanto seu aroma é marcante. Seu sabor é caracteristicamente amargo, tornando-o extremamente versátil e ideal para a criação de alguns dos coquetéis mais renomados ao redor do mundo.",
+    tags: ["Bitter", "Internacional", "Bebidas"],
+    specs: [
+      { label: "Tipos", value: "Tradicional" },
+      { label: "Embalagens", value: "Garrafa" },
+      { label: "Volumes", value: "748ml" },
+      { label: "Origem", value: "Campari" },
+    ],
+  },
+  Leao: {
+    emoji: "🍷",
+    category: "Bebidas",
+    name: "Jurubeba Leão do Norte",
+    desc: "A Jurubeba Leão do Norte é uma bebida nacional, tem aroma agradável e gosto peculiar com componentes doces e amargos que satisfaz e surpreende os paladares mais exigentes.",
+    tags: ["Vinho tinto", "Nacional","Jurubeba", "Bebidas"],
+    specs: [
+      { label: "Tipos", value: "Tradicional" },
+      { label: "Embalagens", value: "Garrafa" },
+      { label: "Volumes", value: "600ml" },
+      { label: "Origem", value: "Leão do Norte" },
+    ],
+  },
+  Orloff: {
+    emoji: "🧊",
+    category: "Bebidas",
+    name: "Vodka Orloff",
+    desc: "A Vodka Orloff 1000 ml é uma expressão nacional que combina tradição e acessibilidade. Produzida no Brasil, é reconhecida pela sua pureza, por ser cinco vezes destilada (em muitos relatos da marca) e por seu perfil suave, o que a torna uma opção versátil para consumo puro ou em coquetéis. ",
+    tags: ["Vodka ", "Nacional", "Bebidas"],
+    specs: [
+      { label: "Tipos", value: "Destilado" },
+      { label: "Embalagens", value: "Garrafa" },
+      { label: "Volumes", value: "1000ml" },
+      { label: "Origem", value: "Orloff" },
+    ],
+  },
+  Portorico: {
     emoji: "🍹",
     category: "Bebidas",
-    name: "Del Valle",
-    desc: "Sucos e néctares Del Valle com sabores naturais e refrescantes. A linha mais completa em sucos de frutas da família Coca-Cola.",
-    tags: ["Suco", "Néctar", "Frutas Naturais"],
+    name: "Coquetel Porto Rico Sabores",
+    desc: "Além dos coquetéis tradicionais, contamos com as Batidas Porto Rico nos sabores Coco, Pêssego e Amendoim, cremosas e prontas para servir. Também oferecemos os Xaropes Porto Rico nos sabores Limão e Groselha, ideais para drinks, coquetéis, sucos e diversas receitas. Nossa linha ainda inclui os sabores Canelinha, Menta, Catuaba e Jurubeba, proporcionando ainda mais opções para criar bebidas saborosas e marcantes para todos os gostos.",
+    tags: ["Coquetel","Xarope","Batida", "Nacional", "Bebidas"],
     specs: [
-      { label: "Sabores", value: "+10 sabores" },
-      { label: "Linha", value: "Néctar / Fresh / Mais" },
-      { label: "Volumes", value: "200ml a 1,5L" },
-      { label: "Origem", value: "Coca-Cola Brasil" },
+      { label: "Tipos", value: "Coquetel / Batida / Xarope" },
+      { label: "Embalagens", value: "Garrafa" },
+      { label: "Volumes", value: "940ml" },
+      { label: "Origem", value: "Porto Rico Bebidas" },
     ],
   },
-  burn: {
-    emoji: "⚡",
+  Selvagem: {
+    emoji: "🍷",
     category: "Bebidas",
-    name: "Burn",
-    desc: "Energético Burn para quem precisa de mais energia e foco. Fórmula com cafeína, taurina e vitaminas do complexo B para máxima performance.",
-    tags: ["Energético", "Cafeína", "Performance"],
+    name: "Catuaba Selvagem",
+    desc: "Das cascas e raízes da catuaba e marapuama e das sementes do guaraná e açaí, obtemos extratos com propriedades estimulantes e energéticas que, quando utilizados na receita especial da Selvagem, proporcionam um sabor de incomparável prazer. ",
+    tags: ["Catuaba ", "Nacional", "Bebidas"],
     specs: [
-      { label: "Sabores", value: "Original / Tropical" },
-      { label: "Teor Cafeína", value: "32mg/100ml" },
-      { label: "Embalagens", value: "Lata 473ml" },
-      { label: "Linha", value: "Coca-Cola Brasil" },
-    ],
-  },
-  heineken: {
-    emoji: "🟢",
-    category: "Bebidas",
-    name: "Heineken",
-    desc: "A cerveja premium holandesa mais famosa do mundo. Heineken é sinônimo de qualidade internacional, com sabor equilibrado e refrescante.",
-    tags: ["Cerveja Premium", "Importada", "Lager"],
-    specs: [
-      { label: "Tipo", value: "Lager / 0.0 / Silver" },
-      { label: "Teor Alcoólico", value: "5% vol." },
-      { label: "Embalagens", value: "Long neck / Lata / Barril" },
-      { label: "Volumes", value: "330ml / 600ml" },
-    ],
-  },
-  leao: {
-    emoji: "🍵",
-    category: "Bebidas",
-    name: "Leão Ice Tea",
-    desc: "Chá gelado Leão Ice Tea nos sabores mais refrescantes. Feito com extrato de chá real e sem conservantes, perfeito para qualquer momento do dia.",
-    tags: ["Chá Gelado", "Sem Conservantes", "Refrescante"],
-    specs: [
-      { label: "Sabores", value: "Pêssego / Limão / Morango" },
-      { label: "Embalagens", value: "PET / Lata" },
-      { label: "Volumes", value: "300ml a 1,5L" },
-      { label: "Linha", value: "Coca-Cola Brasil" },
-    ],
-  },
-  gladiator: {
-    emoji: "💪",
-    category: "Bebidas",
-    name: "Gladiator",
-    desc: "Energético Gladiator com custo acessível e alto rendimento. Ideal para quem busca energia e disposição no dia a dia sem abrir mão do sabor.",
-    tags: ["Energético", "Acessível", "Alto Rendimento"],
-    specs: [
-      { label: "Sabores", value: "Original / Frutas" },
-      { label: "Teor Cafeína", value: "30mg/100ml" },
-      { label: "Embalagens", value: "Lata 269ml / 473ml" },
-      { label: "Linha", value: "Distribuição YORK" },
-    ],
-  },
-  bavaria: {
-    emoji: "🍻",
-    category: "Bebidas",
-    name: "Bavaria",
-    desc: "Cerveja Bavaria, tradição e sabor com um preço justo. Com longa história no mercado brasileiro, Bavaria oferece qualidade e refrescância em cada dose.",
-    tags: ["Cerveja", "Nacional", "Tradicional"],
-    specs: [
-      { label: "Tipo", value: "Lager / Malzbier / Sem Álcool" },
-      { label: "Teor Alcoólico", value: "4,7% vol." },
-      { label: "Embalagens", value: "Long neck / Lata / Barril" },
-      { label: "Volumes", value: "350ml / 600ml" },
+      { label: "Tipos", value: "Catuaba" },
+      { label: "Embalagens", value: "Garrafa" },
+      { label: "Volumes", value: "900ml" },
+      { label: "Origem", value: "Selvagem" },
     ],
   },
 };
@@ -305,14 +344,14 @@ document.getElementById('btn-whatsapp').addEventListener('click', () => {
   document.getElementById('order-error').style.display = 'none';
   const produto = currentProduct ? currentProduct.name : '';
   const msg = `*Solicitação de Cotação — YORK*\n\n` +
-    `📦 *Produto:* ${produto}\n` +
-    `👤 *Nome:* ${d.nome}\n` +
-    `🏢 *Empresa:* ${d.empresa}\n` +
-    `📞 *Telefone:* ${d.telefone}\n` +
-    (d.email ? `📧 *E-mail:* ${d.email}\n` : '') +
-    (d.embalagem ? `📐 *Embalagem:* ${d.embalagem}\n` : '') +
-    `📊 *Quantidade:* ${d.quantidade}\n` +
-    (d.obs ? `📝 *Observações:* ${d.obs}` : '');
+    ` *Produto:* ${produto}\n` +
+    ` *Nome:* ${d.nome}\n` +
+    ` *Empresa:* ${d.empresa}\n` +
+    ` *Telefone:* ${d.telefone}\n` +
+    (d.email ? ` *E-mail:* ${d.email}\n` : '') +
+    (d.embalagem ? ` *Embalagem:* ${d.embalagem}\n` : '') +
+    ` *Quantidade:* ${d.quantidade}\n` +
+    (d.obs ? ` *Observações:* ${d.obs}` : '');
   const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
   window.open(url, '_blank');
   document.getElementById('order-form-area').style.display = 'none';
@@ -364,7 +403,7 @@ let productRowCount = 0;
 const PRODUCT_OPTIONS = [
   { group: 'Álcoois Cereais', items: ['Álcool Cereais'] },
   { group: 'Álcool Hidratado', items: ['Álcool Hidratado 96°', 'Álcool Hidratado 70°', 'Álcool Isopropílico'] },
-  { group: 'Bebidas', items: ['Salinas','Seleta','Cristalina','Ferreira','cinquentaum','Guaraciaba','Del Valle','Burn','Heineken','Leão Ice Tea','Gladiator','Bavaria'] },
+  { group: 'Bebidas', items: ['Salinas','Seleta','Cristalina','Ferreira','51','Guaraciaba','ParaTudo','Presidente','Dreher','Saojoao','Campari','Leao','Orloff','Portorico','Selvagem',] },
 ];
 
 function buildProductOptionsHTML() {
@@ -470,12 +509,12 @@ document.getElementById('general-btn-whatsapp').addEventListener('click', () => 
 
   const msg =
     `*Solicitação de Orçamento — Feralcool*\n\n` +
-    `📦 *Produtos:*\n${listaProdutos}\n\n` +
-    `👤 *Nome:* ${d.nome}\n` +
-    `🏢 *Empresa:* ${d.empresa}\n` +
-    `📞 *Telefone:* ${d.telefone}\n` +
-    (d.email ? `📧 *E-mail:* ${d.email}\n` : '') +
-    (d.obs ? `📝 *Observações:* ${d.obs}` : '');
+    ` *Produtos:*\n${listaProdutos}\n\n` +
+    ` *Nome:* ${d.nome}\n` +
+    ` *Empresa:* ${d.empresa}\n` +
+    ` *Telefone:* ${d.telefone}\n` +
+    (d.email ? ` *E-mail:* ${d.email}\n` : '') +
+    (d.obs ? ` *Observações:* ${d.obs}` : '');
 
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
   document.getElementById('general-order-form-area').style.display = 'none';
