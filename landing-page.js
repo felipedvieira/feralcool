@@ -403,8 +403,48 @@ let productRowCount = 0;
 const PRODUCT_OPTIONS = [
   { group: 'Álcoois Cereais', items: ['Álcool Cereais'] },
   { group: 'Álcool Hidratado', items: ['Álcool Hidratado 96°', 'Álcool Hidratado 70°', 'Álcool Isopropílico'] },
-  { group: 'Bebidas', items: ['Salinas','Seleta','Cristalina','Ferreira','51','Guaraciaba','ParaTudo','Presidente','Dreher','Saojoao','Campari','Leao','Orloff','Portorico','Selvagem',] },
+  { group: 'Bebidas', items: [
+  'Cachaça Salinas',
+  'Cachaça Seleta Ouro',
+  'Cachaça Cristalina Buenópolis Ouro',
+  'Cachaça Ferreira Amburana Ouro',
+  'Cachaça 51',
+  'Cachaça Guaraciaba',
+  'Paratudo Raízes Amargas',
+  'Conhaque Presidente',
+  'Conhaque Dreher',
+  'Conhaque São João da Barra',
+  'Campari',
+  'Jurubeba Leão do Norte',
+  'Vodka Orloff',
+  'Coquetel Porto Rico',
+  'Catuaba Selvagem',
+]},
 ];
+
+const PRODUCT_EMBALAGENS = {
+  // Álcoois
+  'Álcool Cereais':        ['Granel', '5L', '20L', '50L'],
+  'Álcool Hidratado 96°':  ['Granel', '5L', '20L', '50L'],
+  'Álcool Hidratado 70°':  ['Granel', '5L', '20L', '50L'],
+  'Álcool Isopropílico':   ['500ml', '1L', '5L'],
+  // Bebidas
+  'Cachaça Salinas':                    ['Garrafa 600ml'],
+  'Cachaça Seleta Ouro':                ['Garrafa 600ml'],
+  'Cachaça Cristalina Buenópolis Ouro': ['Garrafa 600ml'],
+  'Cachaça Ferreira Amburana Ouro':     ['Garrafa 600ml'],
+  'Cachaça 51':                         ['Garrafa 965ml'],
+  'Cachaça Guaraciaba':                 ['Garrafa 970ml'],
+  'Paratudo Raízes Amargas':            ['Garrafa 900ml'],
+  'Conhaque Presidente':                ['Garrafa 900ml'],
+  'Conhaque Dreher':                    ['Garrafa 900ml'],
+  'Conhaque São João da Barra':         ['Garrafa 900ml'],
+  'Campari':                            ['Garrafa 748ml'],
+  'Jurubeba Leão do Norte':             ['Garrafa 600ml'],
+  'Vodka Orloff':                       ['Garrafa 1000ml'],
+  'Coquetel Porto Rico':                ['Garrafa 940ml'],
+  'Catuaba Selvagem':                   ['Garrafa 900ml'],
+};
 
 function buildProductOptionsHTML() {
   return '<option value="">Selecione...</option>' +
@@ -414,7 +454,6 @@ function buildProductOptionsHTML() {
       `</optgroup>`
     ).join('');
 }
-
 function addProductRow() {
   productRowCount++;
   const rowId = `row-${productRowCount}`;
@@ -423,15 +462,35 @@ function addProductRow() {
   row.id = rowId;
   row.innerHTML = `
     <select class="order-input row-produto">${buildProductOptionsHTML()}</select>
-    <input class="order-input row-embalagem" type="text" placeholder="Embalagem">
+    <select class="order-input row-embalagem" disabled>
+      <option value="">Embalagem</option>
+    </select>
     <input class="order-input row-quantidade" type="text" placeholder="Quantidade">
     <button type="button" class="btn-remove-row" title="Remover">✕</button>
   `;
-  row.querySelector('.btn-remove-row').addEventListener('click', () => {
-    if (productRowsContainer.children.length > 1) {
-      row.remove();
+
+  const selectProduto = row.querySelector('.row-produto');
+  const selectEmbalagem = row.querySelector('.row-embalagem');
+
+  selectProduto.addEventListener('change', () => {
+    const produto = selectProduto.value;
+    const embalagens = PRODUCT_EMBALAGENS[produto];
+
+    if (embalagens && embalagens.length > 0) {
+      selectEmbalagem.innerHTML =
+        '<option value="">Selecione...</option>' +
+        embalagens.map(e => `<option value="${e}">${e}</option>`).join('');
+      selectEmbalagem.disabled = false;
+    } else {
+      selectEmbalagem.innerHTML = '<option value="">Embalagem</option>';
+      selectEmbalagem.disabled = true;
     }
   });
+
+  row.querySelector('.btn-remove-row').addEventListener('click', () => {
+    if (productRowsContainer.children.length > 1) row.remove();
+  });
+
   productRowsContainer.appendChild(row);
 }
 
@@ -444,7 +503,10 @@ function openGeneralOrderModal(preSelectedProduct = null) {
 
   if (preSelectedProduct) {
     const firstSelect = productRowsContainer.querySelector('.row-produto');
-    if (firstSelect) firstSelect.value = preSelectedProduct;
+    if (firstSelect) {
+      firstSelect.value = preSelectedProduct;
+      firstSelect.dispatchEvent(new Event('change')); // dispara o listener para popular embalagens
+    }
   }
 
   ['general-field-nome','general-field-empresa','general-field-telefone','general-field-email','general-field-obs']
