@@ -766,3 +766,20 @@ function closeContactModal() {
 
 document.getElementById('contact-modal-close').addEventListener('click', closeContactModal);
 contactModal.addEventListener('click', e => { if (e.target === contactModal) closeContactModal(); });
+
+// ── MENU HAMBURGER ──
+const hamburger = document.getElementById('nav-hamburger');
+const navLinks = document.querySelector('.nav-links');
+
+hamburger.addEventListener('click', () => {
+  hamburger.classList.toggle('open');
+  navLinks.classList.toggle('open');
+});
+
+// fecha o menu ao clicar em um link
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => {
+    hamburger.classList.remove('open');
+    navLinks.classList.remove('open');
+  });
+});
