@@ -1005,6 +1005,10 @@ footer {
   background: rgba(67,193,0,0.08);
 }
 
+.modal-overlay {
+  overflow-y: auto;
+}
+
 /* ════════════════════════════════════════
    RESPONSIVIDADE
    ════════════════════════════════════════ */
@@ -1123,6 +1127,18 @@ footer {
   /* Contato modal */
   .contact-modal-box { padding: 32px 20px; }
   .contact-title { font-size: 32px; }
+
+  .modal-overlay {
+  align-items: flex-start;
+  padding: 16px 0;
+  overflow-y: auto;
+}
+
+  .modal-box {
+  max-height: none !important;
+  overflow-y: visible;
+  margin: auto;
+}
 }
 
 /* ── MOBILE (≤480px) ── */
