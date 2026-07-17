@@ -783,3 +783,63 @@ navLinks.querySelectorAll('a').forEach(link => {
     navLinks.classList.remove('open');
   });
 });
+
+// ── WHATSAPP FLUTUANTE ──
+const waToggle = document.getElementById('wa-toggle');
+const waPopup = document.getElementById('wa-popup');
+const waClose = document.getElementById('wa-popup-close');
+const waStatus = document.querySelector('.wa-popup-status');
+
+function getStatus() {
+  // horário de Brasília (UTC-3)
+  const now = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Sao_Paulo' }));
+  const day = now.getDay(); // 0=dom, 1=seg ... 6=sab
+  const hour = now.getHours();
+  const min = now.getMinutes();
+  const time = hour * 60 + min; // minutos desde meia-noite
+
+  const SEG_SEX = day >= 1 && day <= 5;
+
+  const MANHA   = time >= 7  * 60       && time < 12 * 60;        // 07:00–12:00
+  const ALMOCO  = time >= 12 * 60       && time < 13 * 60 + 30;   // 12:00–13:30
+  const TARDE   = time >= 13 * 60 + 30  && time < 17 * 60;        // 13:30–17:00
+
+  if (SEG_SEX && (MANHA || TARDE)) return 'online';
+  if (SEG_SEX && ALMOCO)           return 'almoco';
+  return 'offline';
+}
+
+function applyStatus() {
+  const status = getStatus();
+
+  if (status === 'online') {
+    waStatus.textContent = '● Online agora';
+    waStatus.style.color = 'rgba(255,255,255,0.95)';
+  } else if (status === 'almoco') {
+    waStatus.textContent = '🍽 Horário de almoço — retornamos às 13h30';
+    waStatus.style.color = 'rgba(255,255,200,0.95)';
+  } else {
+    waStatus.textContent = '○ Offline — Seg–Sex, 07h–12h e 13h30–17h';
+    waStatus.style.color = 'rgba(255,255,255,0.55)';
+  }
+}
+
+applyStatus();
+setInterval(applyStatus, 60 * 1000); // atualiza a cada minuto
+
+waToggle.addEventListener('click', () => {
+  waPopup.classList.toggle('open');
+  waPopup.setAttribute('aria-hidden', waPopup.classList.contains('open') ? 'false' : 'true');
+});
+
+waClose.addEventListener('click', () => {
+  waPopup.classList.remove('open');
+  waPopup.setAttribute('aria-hidden', 'true');
+});
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('#whatsapp-bubble')) {
+    waPopup.classList.remove('open');
+    waPopup.setAttribute('aria-hidden', 'true');
+  }
+});
