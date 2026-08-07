@@ -13,6 +13,7 @@ document.getElementById("slideButton").addEventListener("click", function () {
 
 const PRODUCTS = {
   "cereal-a": {
+    indisponivel: false,
     emoji: "🌾",
     category: "Álcoois Cereais",
     name: "Álcool de Cereais",
@@ -26,6 +27,7 @@ const PRODUCTS = {
     ],
   },
   "hidratado-a": {
+    indisponivel: false,
     emoji: "💧",
     category: "Álcool Hidratado",
     name: "Álcool Hidratado 96°",
@@ -39,6 +41,7 @@ const PRODUCTS = {
     ],
   },
   "hidratado-b": {
+    indisponivel: false,
     emoji: "💧",
     category: "Álcool Hidratado",
     name: "Álcool Hidratado 70°",
@@ -52,6 +55,7 @@ const PRODUCTS = {
     ],
   },
   "hidratado-c": {
+    indisponivel: false,
     emoji: "💧",
     category: "Álcool Hidratado",
     name: "Álcool Isopropílico",
@@ -65,6 +69,7 @@ const PRODUCTS = {
     ],
   },
   "Salinas": {
+    indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
     name: "Cachaça Salinas",
@@ -78,6 +83,7 @@ const PRODUCTS = {
     ],
   },
   Seleta: {
+    indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
     name: "Cachaça Seleta Ouro",
@@ -91,6 +97,7 @@ const PRODUCTS = {
     ],
   },
   Cristalina: {
+    indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
     name: "Cachaça Cristalina Buenópolis Ouro",
@@ -104,6 +111,7 @@ const PRODUCTS = {
     ],
   },
   Ferreira: {
+    indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
     name: "Cachaça Ferreira Amburana Ouro",
@@ -117,6 +125,7 @@ const PRODUCTS = {
     ],
   },
   cinquentaum: {
+    indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
     name: "Cachaça 51",
@@ -130,6 +139,7 @@ const PRODUCTS = {
     ],
   },
   Guaraciaba: {
+    indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
     name: "Cachaça Guaraciaba",
@@ -143,6 +153,7 @@ const PRODUCTS = {
     ],
   }, 
   Paratudo: {
+    indisponivel: false,
     emoji: "🧊",
     category: "Bebidas",
     name: "Paratudo Raízes Amargas",
@@ -156,6 +167,7 @@ const PRODUCTS = {
     ],
   },
   "Presidente": {
+    indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
     name: "Conhaque Presidente",
@@ -169,6 +181,7 @@ const PRODUCTS = {
     ],
   },
   Dreher: {
+    indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
     name: "Conhaque Dreher",
@@ -182,6 +195,7 @@ const PRODUCTS = {
     ],
   },
   Saojoao: {
+    indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
     name: "Conhaque São João da Barra",
@@ -195,6 +209,7 @@ const PRODUCTS = {
     ],
   },
   Campari: {
+    indisponivel: false,
     emoji: "🍸",
     category: "Bebidas",
     name: "Campari",
@@ -208,6 +223,7 @@ const PRODUCTS = {
     ],
   },
   Leao: {
+    indisponivel: false,
     emoji: "🍷",
     category: "Bebidas",
     name: "Jurubeba Leão do Norte",
@@ -221,6 +237,7 @@ const PRODUCTS = {
     ],
   },
   Orloff: {
+    indisponivel: false,
     emoji: "🧊",
     category: "Bebidas",
     name: "Vodka Orloff",
@@ -234,6 +251,7 @@ const PRODUCTS = {
     ],
   },
   Portorico: {
+    indisponivel: false,
     emoji: "🍹",
     category: "Bebidas",
     name: "Coquetel Porto Rico Sabores",
@@ -247,6 +265,7 @@ const PRODUCTS = {
     ],
   },
   Selvagem: {
+    indisponivel: false,
     emoji: "🍷",
     category: "Bebidas",
     name: "Catuaba Selvagem",
@@ -269,6 +288,15 @@ let currentProduct = null;
 const overlay = document.getElementById('product-modal');
 const closeBtn = document.getElementById('modal-close');
  
+// aplica visual de indisponível nas pills ao carregar
+document.querySelectorAll('.brand-pill[data-product]').forEach(btn => {
+  const p = PRODUCTS[btn.dataset.product];
+  if (p && p.indisponivel) {
+    btn.classList.add('brand-pill--indisponivel');
+    btn.setAttribute('title', 'Produto indisponível no momento');
+  }
+});
+
 document.querySelectorAll('.brand-pill[data-product]').forEach(btn => {
   btn.addEventListener('click', () => {
     const p = PRODUCTS[btn.dataset.product];
@@ -282,6 +310,24 @@ document.querySelectorAll('.brand-pill[data-product]').forEach(btn => {
     document.getElementById('modal-specs').innerHTML = p.specs.map(s =>
       `<div class="modal-spec"><div class="modal-spec-label">${s.label}</div><div class="modal-spec-value">${s.value}</div></div>`
     ).join('');
+
+    // badge e botão no modal
+    const badge = document.getElementById('modal-stock-badge');
+    const orderBtn = document.getElementById('open-order-btn');
+    if (p.indisponivel) {
+      badge.style.display = 'flex';
+      orderBtn.disabled = true;
+      orderBtn.textContent = 'Indisponível';
+      orderBtn.style.opacity = '0.45';
+      orderBtn.style.cursor = 'not-allowed';
+    } else {
+      badge.style.display = 'none';
+      orderBtn.disabled = false;
+      orderBtn.textContent = 'Solicitar pedido →';
+      orderBtn.style.opacity = '1';
+      orderBtn.style.cursor = 'pointer';
+    }
+
     overlay.classList.add('active');
     overlay.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
@@ -447,13 +493,24 @@ const PRODUCT_EMBALAGENS = {
 };
 
 function buildProductOptionsHTML() {
+  // mapeia nomes de produtos indisponíveis
+  const indisponiveis = new Set(
+    Object.values(PRODUCTS)
+      .filter(p => p.indisponivel)
+      .map(p => p.name)
+  );
+
   return '<option value="">Selecione...</option>' +
     PRODUCT_OPTIONS.map(g =>
       `<optgroup label="${g.group}">` +
-      g.items.map(i => `<option value="${i}">${i}</option>`).join('') +
+      g.items.map(i => {
+        const unavailable = indisponiveis.has(i);
+        return `<option value="${i}" ${unavailable ? 'disabled' : ''}>${i}${unavailable ? ' (indisponível)' : ''}</option>`;
+      }).join('') +
       `</optgroup>`
     ).join('');
 }
+
 function addProductRow() {
   productRowCount++;
   const rowId = `row-${productRowCount}`;

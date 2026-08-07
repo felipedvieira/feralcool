@@ -1311,3 +1311,14 @@ footer {
   .product-row .row-quantidade { grid-column: 1 / 2; }
   .contact-title { font-size: 26px; }
 }
+
+/* ── PRODUTO INDISPONÍVEL ── */
+.brand-pill--indisponivel {
+  opacity: 0.45;
+  cursor: not-allowed !important;
+  text-decoration: line-through;
+  background: var(--gray-mid) !important;
+  border-color: var(--gray-mid) !important;
+  color: var(--text-muted) !important;
+  position: relative;
+}
