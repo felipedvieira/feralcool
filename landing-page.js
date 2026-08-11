@@ -13,6 +13,7 @@ document.getElementById("slideButton").addEventListener("click", function () {
 
 const PRODUCTS = {
   "cereal-a": {
+    img: "",
     indisponivel: false,
     emoji: "🌾",
     category: "Álcoois Cereais",
@@ -27,6 +28,7 @@ const PRODUCTS = {
     ],
   },
   "hidratado-a": {
+    img: "img/96_img.png",
     indisponivel: false,
     emoji: "💧",
     category: "Álcool Hidratado",
@@ -41,6 +43,7 @@ const PRODUCTS = {
     ],
   },
   "hidratado-b": {
+    img: "img/produtos/salinas.png",
     indisponivel: false,
     emoji: "💧",
     category: "Álcool Hidratado",
@@ -55,6 +58,7 @@ const PRODUCTS = {
     ],
   },
   "hidratado-c": {
+    img: "img/produtos/salinas.png",
     indisponivel: false,
     emoji: "💧",
     category: "Álcool Hidratado",
@@ -69,6 +73,7 @@ const PRODUCTS = {
     ],
   },
   "Salinas": {
+    img: "img/produtos/salinas.png",
     indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
@@ -83,6 +88,7 @@ const PRODUCTS = {
     ],
   },
   Seleta: {
+    img: "img/produtos/salinas.png",
     indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
@@ -97,6 +103,7 @@ const PRODUCTS = {
     ],
   },
   Cristalina: {
+    img: "img/produtos/salinas.png",
     indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
@@ -111,6 +118,7 @@ const PRODUCTS = {
     ],
   },
   Ferreira: {
+    img: "img/produtos/salinas.png",
     indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
@@ -125,6 +133,7 @@ const PRODUCTS = {
     ],
   },
   cinquentaum: {
+    img: "img/produtos/salinas.png",
     indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
@@ -139,6 +148,7 @@ const PRODUCTS = {
     ],
   },
   Guaraciaba: {
+    img: "img/produtos/salinas.png",
     indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
@@ -153,6 +163,7 @@ const PRODUCTS = {
     ],
   }, 
   Paratudo: {
+    img: "img/produtos/salinas.png",
     indisponivel: false,
     emoji: "🧊",
     category: "Bebidas",
@@ -167,6 +178,7 @@ const PRODUCTS = {
     ],
   },
   "Presidente": {
+    img: "img/produtos/salinas.png",
     indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
@@ -181,6 +193,7 @@ const PRODUCTS = {
     ],
   },
   Dreher: {
+    img: "img/produtos/salinas.png",
     indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
@@ -195,6 +208,7 @@ const PRODUCTS = {
     ],
   },
   Saojoao: {
+    img: "img/produtos/salinas.png",
     indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
@@ -209,6 +223,7 @@ const PRODUCTS = {
     ],
   },
   Campari: {
+    img: "img/produtos/salinas.png",
     indisponivel: false,
     emoji: "🍸",
     category: "Bebidas",
@@ -223,6 +238,7 @@ const PRODUCTS = {
     ],
   },
   Leao: {
+    img: "img/produtos/salinas.png",
     indisponivel: false,
     emoji: "🍷",
     category: "Bebidas",
@@ -237,6 +253,7 @@ const PRODUCTS = {
     ],
   },
   Orloff: {
+    img: "img/produtos/salinas.png",
     indisponivel: false,
     emoji: "🧊",
     category: "Bebidas",
@@ -251,6 +268,7 @@ const PRODUCTS = {
     ],
   },
   Portorico: {
+    img: "img/produtos/salinas.png",
     indisponivel: false,
     emoji: "🍹",
     category: "Bebidas",
@@ -265,6 +283,7 @@ const PRODUCTS = {
     ],
   },
   Selvagem: {
+    img: "img/produtos/salinas.png",
     indisponivel: false,
     emoji: "🍷",
     category: "Bebidas",
@@ -302,7 +321,16 @@ document.querySelectorAll('.brand-pill[data-product]').forEach(btn => {
     const p = PRODUCTS[btn.dataset.product];
     if (!p) return;
     currentProduct = p;
-    document.getElementById('modal-emoji').textContent = p.emoji;
+    const imgEl = document.getElementById('modal-product-img');
+    const placeholder = document.getElementById('modal-product-placeholder');
+    if (p.img) {
+      imgEl.src = p.img;
+      imgEl.style.display = 'block';
+      placeholder.style.display = 'none';
+    } else {
+      imgEl.style.display = 'none';
+      placeholder.style.display = 'flex';
+    }
     document.getElementById('modal-category').textContent = p.category;
     document.getElementById('modal-title').textContent = p.name;
     document.getElementById('modal-desc').textContent = p.desc;

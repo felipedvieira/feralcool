@@ -640,15 +640,44 @@ nav {
   padding-bottom: 20px;
   border-bottom: 2px solid var(--green);
 }
-.modal-emoji {
-  font-size: 40px;
-  width: 64px;
-  height: 64px;
+.modal-product-img-wrap {
+  width: 110px;
+  height: 150px;
+  flex-shrink: 0;
   background: var(--gray);
+  border: 1.5px solid var(--gray-mid);
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.modal-product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;   /* mantém proporção sem cortar */
+  object-position: center bottom; /* garrafa fica apoiada na base */
+  padding: 8px;
+}
+
+.modal-product-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--text-muted);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: 100%;
+  height: 100%;
+}
+
+.modal-product-placeholder span:first-child {
+  font-size: 28px;
 }
 .modal-category {
   font-size: 11px;

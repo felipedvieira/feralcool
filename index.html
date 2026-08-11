@@ -417,13 +417,19 @@
         <button class="modal-close" id="modal-close" aria-label="Fechar">
           ✕
         </button>
-        <div class="modal-header">
-          <div class="modal-emoji" id="modal-emoji"></div>
-          <div>
-            <p class="modal-category" id="modal-category"></p>
-            <h2 class="modal-title" id="modal-title"></h2>
+          <div class="modal-header">
+            <div class="modal-product-img-wrap">
+              <img id="modal-product-img" src="" alt="" class="modal-product-img" style="display:none" />
+                <div id="modal-product-placeholder" class="modal-product-placeholder">
+                <span>📦</span>
+                <span>Sem foto</span>
+                </div>
+            </div>
+                <div>
+                  <p class="modal-category" id="modal-category"></p>
+                  <h2 class="modal-title" id="modal-title"></h2>
+                </div>
           </div>
-        </div>
         <p class="modal-desc" id="modal-desc"></p>
         <div class="modal-tags" id="modal-tags"></div>
         <div class="modal-specs" id="modal-specs"></div>
