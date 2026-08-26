@@ -13,7 +13,7 @@ document.getElementById("slideButton").addEventListener("click", function () {
 
 const PRODUCTS = {
   "cereal-a": {
-    img: "",
+    img: "img/produtos/96_img.png",
     indisponivel: false,
     emoji: "🌾",
     category: "Álcoois Cereais",
@@ -28,7 +28,7 @@ const PRODUCTS = {
     ],
   },
   "hidratado-a": {
-    img: "img/96_img.png",
+    img: "img/produtos/96_img.png",
     indisponivel: false,
     emoji: "💧",
     category: "Álcool Hidratado",
@@ -43,7 +43,7 @@ const PRODUCTS = {
     ],
   },
   "hidratado-b": {
-    img: "img/produtos/salinas.png",
+    img: "img/produtos/96_img.png",
     indisponivel: false,
     emoji: "💧",
     category: "Álcool Hidratado",
@@ -58,7 +58,7 @@ const PRODUCTS = {
     ],
   },
   "hidratado-c": {
-    img: "img/produtos/salinas.png",
+    img: "img/produtos/96_img.png",
     indisponivel: false,
     emoji: "💧",
     category: "Álcool Hidratado",
@@ -73,6 +73,7 @@ const PRODUCTS = {
     ],
   },
   "Salinas": {
+    imgScale: 1.25,
     img: "img/produtos/salinas.png",
     indisponivel: false,
     emoji: "🥃",
@@ -88,7 +89,8 @@ const PRODUCTS = {
     ],
   },
   Seleta: {
-    img: "img/produtos/salinas.png",
+    imgScale: 1.15,
+    img: "img/produtos/seleta.png",
     indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
@@ -103,7 +105,7 @@ const PRODUCTS = {
     ],
   },
   Cristalina: {
-    img: "img/produtos/salinas.png",
+    img: "img/produtos/cristalina.png",
     indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
@@ -118,7 +120,7 @@ const PRODUCTS = {
     ],
   },
   Ferreira: {
-    img: "img/produtos/salinas.png",
+    img: "img/produtos/ferreira.png",
     indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
@@ -133,7 +135,8 @@ const PRODUCTS = {
     ],
   },
   cinquentaum: {
-    img: "img/produtos/salinas.png",
+    imgScale:   1,
+    img: "img/produtos/51.png",
     indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
@@ -148,7 +151,8 @@ const PRODUCTS = {
     ],
   },
   Guaraciaba: {
-    img: "img/produtos/salinas.png",
+    imgScale: 1,
+    img: "img/produtos/guaraciaba.png",
     indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
@@ -163,7 +167,8 @@ const PRODUCTS = {
     ],
   }, 
   Paratudo: {
-    img: "img/produtos/salinas.png",
+    imgScale: 1.25,
+    img: "img/produtos/paratudo.png",
     indisponivel: false,
     emoji: "🧊",
     category: "Bebidas",
@@ -178,7 +183,7 @@ const PRODUCTS = {
     ],
   },
   "Presidente": {
-    img: "img/produtos/salinas.png",
+    img: "img/produtos/presidente.png",
     indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
@@ -193,7 +198,7 @@ const PRODUCTS = {
     ],
   },
   Dreher: {
-    img: "img/produtos/salinas.png",
+    img: "img/produtos/dreher.png",
     indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
@@ -208,7 +213,7 @@ const PRODUCTS = {
     ],
   },
   Saojoao: {
-    img: "img/produtos/salinas.png",
+    img: "img/produtos/saojoao.png",
     indisponivel: false,
     emoji: "🥃",
     category: "Bebidas",
@@ -223,7 +228,7 @@ const PRODUCTS = {
     ],
   },
   Campari: {
-    img: "img/produtos/salinas.png",
+    img: "img/produtos/campari.png",
     indisponivel: false,
     emoji: "🍸",
     category: "Bebidas",
@@ -238,7 +243,7 @@ const PRODUCTS = {
     ],
   },
   Leao: {
-    img: "img/produtos/salinas.png",
+    img: "img/produtos/leao.png",
     indisponivel: false,
     emoji: "🍷",
     category: "Bebidas",
@@ -253,7 +258,7 @@ const PRODUCTS = {
     ],
   },
   Orloff: {
-    img: "img/produtos/salinas.png",
+    img: "img/produtos/orloff.png",
     indisponivel: false,
     emoji: "🧊",
     category: "Bebidas",
@@ -268,7 +273,7 @@ const PRODUCTS = {
     ],
   },
   Portorico: {
-    img: "img/produtos/salinas.png",
+    img: "img/produtos/portorico.png",
     indisponivel: false,
     emoji: "🍹",
     category: "Bebidas",
@@ -283,7 +288,7 @@ const PRODUCTS = {
     ],
   },
   Selvagem: {
-    img: "img/produtos/salinas.png",
+    img: "img/produtos/selvagem.png",
     indisponivel: false,
     emoji: "🍷",
     category: "Bebidas",
@@ -326,6 +331,7 @@ document.querySelectorAll('.brand-pill[data-product]').forEach(btn => {
     if (p.img) {
       imgEl.src = p.img;
       imgEl.style.display = 'block';
+      imgEl.style.transform = `translate(-50%, -50%) scale(${p.imgScale || 1.35})`;
       placeholder.style.display = 'none';
     } else {
       imgEl.style.display = 'none';
