@@ -183,6 +183,7 @@ const PRODUCTS = {
     ],
   },
   "Presidente": {
+    imgScale: 1.05,
     img: "img/produtos/presidente.png",
     indisponivel: false,
     emoji: "🥃",
@@ -198,6 +199,7 @@ const PRODUCTS = {
     ],
   },
   Dreher: {
+    imgScale:1.02,
     img: "img/produtos/dreher.png",
     indisponivel: false,
     emoji: "🥃",
@@ -213,6 +215,7 @@ const PRODUCTS = {
     ],
   },
   Saojoao: {
+    imgScale: 1.05,
     img: "img/produtos/saojoao.png",
     indisponivel: false,
     emoji: "🥃",
@@ -228,6 +231,7 @@ const PRODUCTS = {
     ],
   },
   Campari: {
+    imgScale: 1,
     img: "img/produtos/campari.png",
     indisponivel: false,
     emoji: "🍸",
@@ -243,6 +247,7 @@ const PRODUCTS = {
     ],
   },
   Leao: {
+    imgScale: 1.05,
     img: "img/produtos/leao.png",
     indisponivel: false,
     emoji: "🍷",
@@ -258,6 +263,7 @@ const PRODUCTS = {
     ],
   },
   Orloff: {
+    imgScale: 1.05,
     img: "img/produtos/orloff.png",
     indisponivel: false,
     emoji: "🧊",
@@ -273,6 +279,7 @@ const PRODUCTS = {
     ],
   },
   Portorico: {
+    imgScale: 1.05,
     img: "img/produtos/portorico.png",
     indisponivel: false,
     emoji: "🍹",
@@ -288,7 +295,8 @@ const PRODUCTS = {
     ],
   },
   Selvagem: {
-    img: "img/produtos/selvagem.png",
+    imgScale: 1.05,
+    img: "img/produtos/catuaba.png",
     indisponivel: false,
     emoji: "🍷",
     category: "Bebidas",
@@ -504,9 +512,9 @@ const PRODUCT_OPTIONS = [
 
 const PRODUCT_EMBALAGENS = {
   // Álcoois
-  'Álcool Cereais':        ['Granel', '5L', '20L', '50L'],
-  'Álcool Hidratado 96°':  ['Granel', '5L', '20L', '50L'],
-  'Álcool Hidratado 70°':  ['Granel', '5L', '20L', '50L'],
+  'Álcool Cereais':        ['Granel'],
+  'Álcool Hidratado 96°':  ['Granel'],
+  'Álcool Hidratado 70°':  ['Granel'],
   'Álcool Isopropílico':   ['500ml', '1L', '5L'],
   // Bebidas
   'Cachaça Salinas':                    ['Garrafa 600ml'],
@@ -551,36 +559,98 @@ function addProductRow() {
   const row = document.createElement('div');
   row.className = 'product-row';
   row.id = rowId;
+
   row.innerHTML = `
     <select class="order-input row-produto">${buildProductOptionsHTML()}</select>
     <select class="order-input row-embalagem" disabled>
       <option value="">Embalagem</option>
     </select>
-    <input class="order-input row-quantidade" type="text" placeholder="Quantidade">
+    <select class="order-input row-quantidade">
+      <option value="">Qtd</option>
+    </select>
     <button type="button" class="btn-remove-row" title="Remover">✕</button>
   `;
 
-  const selectProduto = row.querySelector('.row-produto');
+  const ALCOOL_GRANEL = [
+    'Álcool Cereais',
+    'Álcool Hidratado 96°',
+    'Álcool Hidratado 70°',
+    'Álcool Isopropílico',
+  ];
+
+  const selectProduto   = row.querySelector('.row-produto');
   const selectEmbalagem = row.querySelector('.row-embalagem');
+  const selectQtd       = row.querySelector('.row-quantidade');
 
-  selectProduto.addEventListener('change', () => {
-    const produto = selectProduto.value;
-    const embalagens = PRODUCT_EMBALAGENS[produto];
+  // aviso de granel — inserido após a row, removido quando troca produto
+  let granelMsg = null;
 
-    if (embalagens && embalagens.length > 0) {
-      selectEmbalagem.innerHTML =
-        '<option value="">Selecione...</option>' +
-        embalagens.map(e => `<option value="${e}">${e}</option>`).join('');
-      selectEmbalagem.disabled = false;
-    } else {
-      selectEmbalagem.innerHTML = '<option value="">Embalagem</option>';
-      selectEmbalagem.disabled = true;
+  function removeGranelMsg() {
+    if (granelMsg) { granelMsg.remove(); granelMsg = null; }
+  }
+
+  function buildQtdOptions(isAlcool) {
+    if (isAlcool) {
+      // campo livre para álcoois (litros/kg sem limite fixo)
+      return '<option value="">Volume</option>' +
+        ['50L','100L','200L','500L','1000L', 'Outro'].map(v =>
+          `<option value="${v}">${v}</option>`
+        ).join('');
     }
-  });
+    // 1–50 para bebidas engarrafadas
+    return '<option value="">Qtd</option>' +
+      Array.from({ length: 50 }, (_, i) => i + 1).map(n =>
+        `<option value="${n}">${n}</option>`
+      ).join('');
+  }
 
-  row.querySelector('.btn-remove-row').addEventListener('click', () => {
-    if (productRowsContainer.children.length > 1) row.remove();
-  });
+selectProduto.addEventListener('change', () => {
+  const produto    = selectProduto.value;
+  const embalagens = PRODUCT_EMBALAGENS[produto];
+  const isAlcool   = ALCOOL_GRANEL.includes(produto);
+
+  // embalagem
+  if (embalagens && embalagens.length > 0) {
+    selectEmbalagem.innerHTML =
+      '<option value="">Selecione...</option>' +
+      embalagens.map(e => `<option value="${e}">${e}</option>`).join('');
+    selectEmbalagem.disabled = false;
+  } else {
+    selectEmbalagem.innerHTML = '<option value="">Embalagem</option>';
+    selectEmbalagem.disabled = true;
+  }
+
+  // quantidade — busca o elemento atual (pode ter sido trocado)
+  const currentQtd = row.querySelector('.row-quantidade');
+
+  if (isAlcool) {
+    if (currentQtd.tagName !== 'INPUT') {
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'order-input row-quantidade';
+      input.placeholder = 'Ex: 200L';
+      currentQtd.replaceWith(input);
+    }
+  } else {
+    if (currentQtd.tagName !== 'SELECT') {
+      const newSelect = document.createElement('select');
+      newSelect.className = 'order-input row-quantidade';
+      newSelect.innerHTML = buildQtdOptions(false);
+      currentQtd.replaceWith(newSelect);
+    } else {
+      currentQtd.innerHTML = buildQtdOptions(false);
+    }
+  }
+
+  // aviso granel
+  removeGranelMsg();
+  if (isAlcool && produto) {
+    granelMsg = document.createElement('p');
+    granelMsg.className = 'granel-msg';
+    granelMsg.textContent = '⚠️ Vendido a granel. Embalagens vendidas separadamente para transporte do material.';
+    row.insertAdjacentElement('afterend', granelMsg);
+  }
+});
 
   productRowsContainer.appendChild(row);
 }

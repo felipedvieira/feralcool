@@ -1353,3 +1353,15 @@ footer {
   color: var(--text-muted) !important;
   position: relative;
 }
+
+/* ── AVISO GRANEL ── */
+.granel-msg {
+  font-size: 12px;
+  font-weight: 600;
+  color: #856404;
+  background: #fff8e1;
+  border: 1.5px solid #f0c040;
+  padding: 8px 12px;
+  margin: -4px 0 8px;
+  line-height: 1.5;
+}
