@@ -13,7 +13,7 @@ document.getElementById("slideButton").addEventListener("click", function () {
 
 const PRODUCTS = {
   "cereal-a": {
-    img: "img/produtos/96_img.png",
+    img: "img/produtos/alcool-cereais.png",
     indisponivel: false,
     emoji: "🌾",
     category: "Álcoois Cereais",
@@ -43,7 +43,8 @@ const PRODUCTS = {
     ],
   },
   "hidratado-b": {
-    img: "img/produtos/96_img.png",
+    imgScale: 1,
+    img: "img/produtos/alcool-70.png",
     indisponivel: false,
     emoji: "💧",
     category: "Álcool Hidratado",
@@ -58,7 +59,8 @@ const PRODUCTS = {
     ],
   },
   "hidratado-c": {
-    img: "img/produtos/96_img.png",
+    imgScale: 1,
+    img: "img/produtos/alcool-isopropilico.png",
     indisponivel: false,
     emoji: "💧",
     category: "Álcool Hidratado",
