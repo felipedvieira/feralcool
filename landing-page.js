@@ -338,14 +338,36 @@ document.querySelectorAll('.brand-pill[data-product]').forEach(btn => {
     currentProduct = p;
     const imgEl = document.getElementById('modal-product-img');
     const placeholder = document.getElementById('modal-product-placeholder');
+
+        // reset handlers primeiro
+    imgEl.onload = null;
+    imgEl.onerror = null;
+
     if (p.img) {
-      imgEl.src = p.img;
-      imgEl.alt = p.name;
-      imgEl.style.display = 'block';
       imgEl.style.transform = `translate(-50%, -50%) scale(${p.imgScale || 1.35})`;
-      placeholder.style.display = 'none';
+
+      // imagem já em cache — mostra direto sem esperar onload
+      const tempImg = new Image();
+      tempImg.onload = () => {
+        imgEl.src = p.img;
+        placeholder.style.display = 'none';
+        imgEl.style.display = 'block';
+      };
+      tempImg.onerror = () => {
+        imgEl.style.display = 'none';
+        placeholder.innerHTML = '<span style="font-size:28px">📦</span><span>Sem foto</span>';
+        placeholder.style.display = 'flex';
+      };
+
+      // mostra loading enquanto carrega
+      imgEl.style.display = 'none';
+      placeholder.innerHTML = '<span style="font-size:28px">⏳</span><span>Carregando...</span>';
+      placeholder.style.display = 'flex';
+
+      tempImg.src = p.img;
     } else {
       imgEl.style.display = 'none';
+      placeholder.innerHTML = '<span style="font-size:28px">📦</span><span>Sem foto</span>';
       placeholder.style.display = 'flex';
     }
     document.getElementById('modal-category').textContent = p.category;
