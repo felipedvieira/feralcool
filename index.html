@@ -3,7 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Feralcool Distribuidora</title>
+    <title>Feralcool Distribuidora | Álcool Industrial e Bebidas em Belo Horizonte</title>
+    <meta
+      name="description"
+      content="Feralcool Distribuidora — mais de 42 anos fornecendo álcool cereal, hidratado e isopropílico a granel para indústria, além de bebidas destiladas, em Belo Horizonte e região."
+    />
+    <link rel="canonical" href="https://www.feralcool.com.br/" />
+    <!-- TODO: atualizar a URL acima (canonical e og:url) quando o domínio definitivo estiver registrado -->
+
+    <!-- Open Graph / redes sociais -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Feralcool Distribuidora" />
+    <meta property="og:title" content="Feralcool Distribuidora | Álcool Industrial e Bebidas em Belo Horizonte" />
+    <meta
+      property="og:description"
+      content="Distribuidora e refracionadora de álcool com mais de 42 anos de mercado. Álcool cereal, hidratado e isopropílico a granel para indústria, entrega em Belo Horizonte e região."
+    />
+    <meta property="og:image" content="https://www.feralcool.com.br/img/Feralcool_colorida%20recorte.png" />
+    <meta property="og:url" content="https://www.feralcool.com.br/" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" type="image/png" href="img/Feralcool_colorida recorte.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@400;500;600&display=swap"
       rel="stylesheet"
@@ -12,6 +36,28 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script defer src="landing-page.js"></script>
 
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Feralcool Distribuidora",
+      "description": "Distribuidora e refracionadora de álcool industrial (cereal, hidratado, isopropílico) a granel e bebidas destiladas.",
+      "image": "https://www.feralcool.com.br/img/Feralcool_colorida%20recorte.png",
+      "telephone": "+5531983754922",
+      "email": "feralcooldistribuidora@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "R. Além Paraíba, 725",
+        "addressLocality": "Belo Horizonte",
+        "addressRegion": "MG",
+        "addressCountry": "BR"
+      },
+      "sameAs": [
+        "https://facebook.com/feralcooldistribuidora",
+        "https://instagram.com/feralcooldistribuidora"
+      ]
+    }
+    </script>
   </head>
   
   <!-- WHATSAPP FLUTUANTE -->
@@ -106,7 +152,7 @@
           décadas de experiência como distribuidora exclusiva de diferentes
           tipos etílicos, além de outros tipos de bebidas.
         </p>
-        <button href="#" class="btn-outline" id="slideButton">
+        <button type="button" class="btn-outline" id="slideButton">
           Conheça nossa história
         </button>
       </div>
@@ -150,7 +196,7 @@
 
   <div class="timeline-item">
     <div class="timeline-logo-box">
-      <img src="img/apa_logo.png" alt="Bebidas APA" class="timeline-logo" />
+      <img src="img/apa_logo.png" alt="Bebidas APA" class="timeline-logo" loading="lazy" />
     </div>
     <div class="timeline-dot"></div>
     <div class="timeline-year">1978</div>
@@ -159,7 +205,7 @@
 
   <div class="timeline-item timeline-item--compact">
     <div class="timeline-logo-box">
-      <img src="img/barra_longa.jpg" alt="Cachaça Barra Longa" class="timeline-logo" />
+      <img src="img/barra_longa.jpg" alt="Cachaça Barra Longa" class="timeline-logo" loading="lazy" />
     </div>
     <div class="timeline-dot"></div>
     <div class="timeline-year">2012</div>
@@ -168,7 +214,7 @@
 
   <div class="timeline-item timeline-item--compact">
     <div class="timeline-logo-box">
-      <img src="img/aroma.jpg" alt="Cachaça Barra Longa" class="timeline-logo" />
+      <img src="img/aroma.jpg" alt="Cachaça Aroma de Minas" class="timeline-logo" loading="lazy" />
     </div>
     <div class="timeline-dot"></div>
     <div class="timeline-year">2014</div>
@@ -177,7 +223,7 @@
 
   <div class="timeline-item">
     <div class="timeline-logo-box">
-      <img src="img/Feralcool_colorida recorte.png" alt="Feralcool" class="timeline-logo" />
+      <img src="img/Feralcool_colorida recorte.png" alt="Feralcool" class="timeline-logo" loading="lazy" />
     </div>
     <div class="timeline-dot"></div>
     <div class="timeline-year">2022</div>
@@ -332,7 +378,7 @@
 
     <!-- Logo de fundo -->
     <div class="contact-bg-logo">
-      <img src="img/Feralcool_colorida recorte.png" alt="" aria-hidden="true" />
+      <img src="img/Feralcool_colorida recorte.png" alt="" aria-hidden="true" loading="lazy" />
     </div>
 
     <div class="contact-content">
@@ -420,7 +466,7 @@
         </button>
           <div class="modal-header">
             <div class="modal-product-img-wrap">
-              <img id="modal-product-img" src="" alt="" class="modal-product-img" style="display:none" />
+              <img id="modal-product-img" src="" alt="" class="modal-product-img" style="display:none" loading="lazy" />
                 <div id="modal-product-placeholder" class="modal-product-placeholder">
                 <span>📦</span>
                 <span>Sem foto</span>
@@ -588,7 +634,7 @@
         <ul>
           <li><a href="#">Início</a></li>
           <li><a href="#intro_id">Empresa</a></li>
-          <li><a href="#services_id">Produtos</a></li>
+          <li><a href="#products_id">Produtos</a></li>
           <li><a href="#services_id">Entregas</a></li>
           <li><a href="#" class="open-contact-modal">Contato</a></li>
         </ul>

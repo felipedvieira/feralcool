@@ -340,6 +340,7 @@ document.querySelectorAll('.brand-pill[data-product]').forEach(btn => {
     const placeholder = document.getElementById('modal-product-placeholder');
     if (p.img) {
       imgEl.src = p.img;
+      imgEl.alt = p.name;
       imgEl.style.display = 'block';
       imgEl.style.transform = `translate(-50%, -50%) scale(${p.imgScale || 1.35})`;
       placeholder.style.display = 'none';
@@ -433,7 +434,7 @@ document.getElementById('btn-whatsapp').addEventListener('click', () => {
   }
   document.getElementById('order-error').style.display = 'none';
   const produto = currentProduct ? currentProduct.name : '';
-  const msg = `*Solicitação de Cotação — YORK*\n\n` +
+  const msg = `*Solicitação de Cotação — Feralcool*\n\n` +
     ` *Produto:* ${produto}\n` +
     ` *Nome:* ${d.nome}\n` +
     ` *Empresa:* ${d.empresa}\n` +
