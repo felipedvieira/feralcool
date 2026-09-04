@@ -414,10 +414,34 @@ overlay.addEventListener('click', e => { if (e.target === overlay) closeModal();
 const orderOverlay = document.getElementById('order-modal');
 const orderCloseBtn = document.getElementById('order-modal-close');
  
+// mapa de nome do PRODUCTS → nome exato no PRODUCT_OPTIONS
+const PRODUCT_NAME_MAP = {
+  'Álcool de Cereais':                  'Álcool Cereais',
+  'Álcool Hidratado 96°':               'Álcool Hidratado 96°',
+  'Álcool Hidratado 70°':               'Álcool Hidratado 70°',
+  'Álcool Isopropílico':                'Álcool Isopropílico',
+  'Cachaça Salinas':                    'Cachaça Salinas',
+  'Cachaça Seleta Ouro':                'Cachaça Seleta Ouro',
+  'Cachaça Cristalina Buenópolis Ouro': 'Cachaça Cristalina Buenópolis Ouro',
+  'Cachaça Ferreira Amburana Ouro':     'Cachaça Ferreira Amburana Ouro',
+  'Cachaça 51':                         'Cachaça 51',
+  'Cachaça Guaraciaba':                 'Cachaça Guaraciaba',
+  'Paratudo Raízes Amargas':            'Paratudo Raízes Amargas',
+  'Conhaque Presidente':                'Conhaque Presidente',
+  'Conhaque Dreher':                    'Conhaque Dreher',
+  'Conhaque São João da Barra':         'Conhaque São João da Barra',
+  'Campari':                            'Campari',
+  'Jurubeba Leão do Norte':             'Jurubeba Leão do Norte',
+  'Vodka Orloff':                       'Vodka Orloff',
+  'Coquetel Porto Rico Sabores':        'Coquetel Porto Rico',
+  'Catuaba Selvagem':                   'Catuaba Selvagem',
+};
+
 document.getElementById('open-order-btn').addEventListener('click', () => {
   if (!currentProduct) return;
   closeModal();
-  openGeneralOrderModal(currentProduct.name);
+  const nomeMapeado = PRODUCT_NAME_MAP[currentProduct.name] || currentProduct.name;
+  openGeneralOrderModal(nomeMapeado);
 });
  
 function closeOrderModal() {
@@ -596,6 +620,15 @@ function addProductRow() {
     <button type="button" class="btn-remove-row" title="Remover">✕</button>
   `;
 
+    row.querySelector('.btn-remove-row').addEventListener('click', () => {
+    if (productRowsContainer.children.length > 1) {
+      removeGranelMsg();
+      row.remove();
+      updateRemoveButtons();
+    }
+  });
+
+
   const ALCOOL_GRANEL = [
     'Álcool Cereais',
     'Álcool Hidratado 96°',
@@ -678,9 +711,21 @@ selectProduto.addEventListener('change', () => {
 });
 
   productRowsContainer.appendChild(row);
+  updateRemoveButtons();
 }
 
-document.getElementById('add-product-row').addEventListener('click', addProductRow);
+function updateRemoveButtons() {
+  const rows = productRowsContainer.querySelectorAll('.product-row');
+  rows.forEach(r => {
+    const btn = r.querySelector('.btn-remove-row');
+    if (btn) btn.style.visibility = rows.length === 1 ? 'hidden' : 'visible';
+  });
+}
+
+document.getElementById('add-product-row').addEventListener('click', () => {
+  addProductRow();
+  updateRemoveButtons();
+});
 
 function openGeneralOrderModal(preSelectedProduct = null) {
   productRowsContainer.innerHTML = '';
